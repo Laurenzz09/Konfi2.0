@@ -18,7 +18,7 @@
         <span class="link-icon">
           <ion-icon name="home-outline"></ion-icon>
         </span>
-        <span class="link-title">Home</span>
+        <span class="link-title">Startseite</span>
       </a>
       <a href="konfigurator.html" class="link active">
         <span class="link-icon">
@@ -26,19 +26,19 @@
         </span>
         <span class="link-title">Konfigurator</span>
       </a>
-      <a href="#" class="link">
+      <a href="modulBerechner.html" class="link">
         <span class="link-icon">
             <ion-icon name="calculator-outline"></ion-icon>
         </span>
         <span class="link-title">Modulrechner</span>
       </a>
-      <a href="#" class="link">
+      <a href="tabelle.html" class="link">
         <span class="link-icon">
             <ion-icon name="document-text-outline"></ion-icon>
         </span>
         <span class="link-title">Tabelle</span>
       </a>
-      <a href="#" class="link">
+      <a href="settings.html" class="link">
         <span class="link-icon">
             <ion-icon name="settings-outline"></ion-icon>
         </span>
@@ -65,11 +65,40 @@
   </main>
 
 
-  <!-- Ionicons Scripts -->
+  <div class="config-buttons">
+  <button onclick="exportArticles()">
+    <div class="svg-wrapper-1">
+      <div class="svg-wrapper">
+        <!-- Download-Icon -->
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="30" height="30">
+          <path d="M5 20h14v-2H5m14-9h-4V3H9v6H5l7 7 7-7z" fill="white" />
+        </svg>
+      </div>
+    </div>
+    <span>Exportieren</span>
+  </button>
+
+  <button onclick="importArticles()">
+    <div class="svg-wrapper-1">
+      <div class="svg-wrapper">
+        <!-- Upload-Icon -->
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="30" height="30">
+          <path d="M5 20h14v-2H5m14-9h-4V3H9v6H5l7 7 7-7z" fill="white" transform="rotate(180 12 12)" />
+        </svg>
+      </div>
+    </div>
+    <span>Importieren</span>
+  </button>
+  <input type="file" id="importFile" accept=".json" style="display: none" />
+</div>
+
+
+
   <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
   <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   <script src="script.js"></script>
+  <script src="exportImport.js"></script>
 
 </body>
 </html>

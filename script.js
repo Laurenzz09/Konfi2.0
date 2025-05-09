@@ -54,48 +54,153 @@ function confirmClear() {
   });
 }
 
+
+// Styling für SweetAlert2 Modal mit symmetrischem Layout
+(function injectSwalStyle() {
+const swalStyle = `
+  .swal2-popup {
+    max-width: 480px !important;
+    width: 95% !important;
+    box-sizing: border-box;
+  }
+
+  .swal-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin: 0 auto;
+    box-sizing: border-box;
+  }
+
+  .form-group {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .form-row {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+  }
+
+  .form-row .form-group {
+    flex: none;
+  }
+
+  #artikellaengen,
+  #artikelgroessen {
+    width: 100px;
+    text-align: center;
+  }
+
+  #artikelname,
+  #vollzeitMitarbeiter {
+    max-width: 300px;
+    margin: 0 auto;
+  }
+
+
+  .swal2-input {
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  .lieferrhythmus-group {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .lieferrhythmus-options {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    justify-content: center;
+  }
+
+  .container {
+    position: relative;
+    padding-left: 25px;
+    cursor: pointer;
+  }
+
+  .container input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+  }
+
+  .checkmark {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 18px;
+    width: 18px;
+    background-color: #eee;
+    border-radius: 50%;
+  }
+
+  .container input:checked ~ .checkmark {
+    background-color: #2196F3;
+  }
+`;
+
+
+  const styleTag = document.createElement('style');
+  styleTag.textContent = swalStyle;
+  document.head.appendChild(styleTag);
+})();
+
+
+
+
 function openItemModal(item = {}) {
   Swal.fire({
-    title: item.id ? "Artikel bearbeiten" : translations[currentLanguage].modalTitle,  
+    title: item.id ? "Artikel bearbeiten" : translations[currentLanguage].modalTitle,
     html: `
-  <div class="swal-form">
-    <label for="artikelname">${translations[currentLanguage].itemName}</label>
-    <input type="text" id="artikelname" class="swal2-input" value="${item.artikelname || ''}">
+      <div class="swal-form">
+        <div class="form-group">
+          <label for="artikelname">${translations[currentLanguage].itemName}</label>
+          <input type="text" id="artikelname" class="swal2-input" value="${item.artikelname || ''}">
+        </div>
 
-    <div class="row">
-      <div>
-        <label for="artikellaengen">${translations[currentLanguage].itemLengths}</label>
-        <input type="text" id="artikellaengen" class="swal2-input" value="${item.artikellaengen || ''}">
+        <div class="form-row">
+          <div class="form-group">
+            <label for="artikellaengen">${translations[currentLanguage].itemLengths}</label>
+            <input type="number" id="artikellaengen" class="swal2-input" value="${item.artikellaengen || ''}">
+          </div>
+          <div class="form-group">
+            <label for="artikelgroessen">${translations[currentLanguage].itemSizes}</label>
+            <input type="number" id="artikelgroessen" class="swal2-input" value="${item.artikelgroessen || ''}">
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="vollzeitMitarbeiter">${translations[currentLanguage].employees}</label>
+          <input type="number" id="vollzeitMitarbeiter" class="swal2-input" value="${item.vollzeitMitarbeiter || ''}">
+        </div>
+
+        <div class="lieferrhythmus-options">
+          <label class="container">1x pro Woche
+            <input type="radio" name="lieferrhythmus" value="1" ${item.lieferrhythmus == 1 ? 'checked' : ''}>
+            <div class="checkmark"></div>
+          </label>
+          <label class="container">2x pro Woche
+            <input type="radio" name="lieferrhythmus" value="2" ${item.lieferrhythmus == 2 ? 'checked' : ''}>
+            <div class="checkmark"></div>
+          </label>
+          <label class="container">3x pro Woche
+            <input type="radio" name="lieferrhythmus" value="3" ${item.lieferrhythmus == 3 ? 'checked' : ''}>
+            <div class="checkmark"></div>
+          </label>
+          <label class="container">5x pro Woche
+            <input type="radio" name="lieferrhythmus" value="5" ${item.lieferrhythmus == 5 ? 'checked' : ''}>
+            <div class="checkmark"></div>
+          </label>
+        </div>
+        </div>
       </div>
-      <div>
-        <label for="artikelgroessen">${translations[currentLanguage].itemSizes}</label>
-        <input type="text" id="artikelgroessen" class="swal2-input" value="${item.artikelgroessen || ''}">
-      </div>
-    </div>
-
-    <label for="vollzeitMitarbeiter">${translations[currentLanguage].employees}</label>
-    <input type="number" id="vollzeitMitarbeiter" class="swal2-input" value="${item.vollzeitMitarbeiter || ''}">
-
-    <div class="lieferrhythmus-group" style="margin-top: 1rem;">
-      <label style="margin-bottom: 5px; display: block;">Lieferrhythmus</label>
-      <div class="lieferrhythmus-options" style="display: flex; gap: 15px; justify-content: center;">
-        <label class="container">1x pro Woche
-          <input type="radio" name="lieferrhythmus" value="1" ${item.lieferrhythmus == 1 ? 'checked' : ''}>
-          <div class="checkmark"></div>
-        </label>
-        <label class="container">3x pro Woche
-          <input type="radio" name="lieferrhythmus" value="3" ${item.lieferrhythmus == 3 ? 'checked' : ''}>
-          <div class="checkmark"></div>
-        </label>
-        <label class="container">5x pro Woche
-          <input type="radio" name="lieferrhythmus" value="5" ${item.lieferrhythmus == 5 ? 'checked' : ''}>
-          <div class="checkmark"></div>
-        </label>
-      </div>
-    </div>
-  </div>
-`,
-
+    `,
     showCancelButton: true,
     confirmButtonText: translations[currentLanguage].saveButton,
     preConfirm: () => {
@@ -125,6 +230,7 @@ function openItemModal(item = {}) {
   });
 }
 
+
 function generateUniqueId() {
   return `item-${Date.now()}-${Math.random().toString(36).substring(2, 9)}`;
 }
@@ -132,8 +238,20 @@ function generateUniqueId() {
 function saveItemWithData(data, id) {
   const tauschquote = 2;
   const tauschmenge = data.vollzeitMitarbeiter * tauschquote;
-  let ausstattungsmenge = tauschmenge *
-    (data.lieferrhythmus === 1 ? 3 : data.lieferrhythmus === 3 ? 2.5 : 2);
+
+  // Faktor abhängig vom Lieferrhythmus
+  let faktor;
+  switch (data.lieferrhythmus) {
+    case 1: faktor = 3; break;
+    case 2: faktor = 2.75; break; // neu hinzugefügt
+    case 3: faktor = 2.5; break;
+    case 5: faktor = 2; break;
+    default: faktor = 2.5; // Fallback
+  }
+
+  let ausstattungsmenge = tauschmenge * faktor;
+
+  // Zuschlag je nach Mitarbeiteranzahl
   ausstattungsmenge = Math.round(
     ausstattungsmenge *
     (data.vollzeitMitarbeiter > 50 && data.vollzeitMitarbeiter <= 100 ? 1.15 :
@@ -159,12 +277,14 @@ function saveItemWithData(data, id) {
   loadItems();
 }
 
+
 function loadItems() {
   const container = document.getElementById('inventory-container');
   container.innerHTML = '';
 
   const plusItem = document.createElement('div');
   plusItem.className = 'inventory-item';
+  plusItem.classList.add('plus');
   plusItem.innerHTML = `<span class="plus-icon">+</span>`;
   plusItem.onclick = () => openItemModal();
   container.appendChild(plusItem);

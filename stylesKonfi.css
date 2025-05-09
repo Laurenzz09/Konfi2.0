@@ -1,10 +1,36 @@
 .top-bar {
-    padding: 1rem;
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
-    gap: 1rem;
-  }
+  display: flex;
+  gap: 1rem;
+  padding: 1rem;
+  margin-top: -100px;
+  justify-content: flex-end; /* oder center */
+  align-items: center;
+}
+
+.top-bar select,
+.top-bar button {
+  padding: 0.5rem 0.9rem;
+  font-size: 14px;
+  border: none;
+  border-radius: 6px;
+  background-color: #ffffff;
+  color: #333;
+  cursor: pointer;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+  transition: background-color 0.2s ease, transform 0.1s ease;
+}
+
+.top-bar select:hover,
+.top-bar button:hover {
+  background-color: #f0f0f0;
+  transform: translateY(-1px);
+}
+
+.top-bar select:focus,
+.top-bar button:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px #2196F3;
+}
   
   #language-select {
     margin-left: auto;
@@ -26,20 +52,44 @@
     margin: 0 auto;
   }
   
-  .inventory-item {
-    background: #fff;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    padding: 1rem;
-    text-align: center;
-    cursor: pointer;
-    transition: all 0.2s ease;
-  }
+ .inventory-item {
+  width: 160px;
+  height: 60px;
+  background: linear-gradient(135deg, #ffa500, #ff7600);
+  color: white;
+  border-radius: 12px;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+}
   
-  .inventory-item:hover {
-    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-    transform: translateY(-2px);
-  }
+.inventory-item:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.4);
+}
+
+#inventory-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 1rem;
+  justify-items: center;
+  margin-top: 2rem;
+}
+
+.inventory-item.plus {
+  background: #fff;
+  color: #333;
+  border: 2px dashed #ccc;
+}
+.inventory-item.plus:hover {
+  background: #eee;
+}
+
   
   .plus-icon {
     font-size: 2rem;

@@ -28,12 +28,17 @@
   padding: 1.2rem;
   border-radius: 10px;
   box-shadow: 0 0 10px rgba(0,0,0,0.2);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 160px; /* gleiche Höhe für alle */
 }
 
 .result-grid h3 {
-  margin-top: 0;
+  margin: 0;
   color: #ff9800;
   font-size: 1.1rem;
+  text-align: center;
 }
 
 .result-grid p {
@@ -41,7 +46,10 @@
   font-weight: bold;
   color: #ffffff;
   text-align: center;
+  margin: auto 0 0 0;
+  white-space: pre-line;
 }
+
 
 .modul-button {
   display: block;

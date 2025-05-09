@@ -198,11 +198,12 @@ function openItemModal(item = {}) {
             <div class="checkmark"></div>
           </label>
         </div>
-        </div>
       </div>
     `,
     showCancelButton: true,
+    showDenyButton: !!item.id,
     confirmButtonText: translations[currentLanguage].saveButton,
+    denyButtonText: 'Löschen',
     preConfirm: () => {
       const name = document.getElementById('artikelname').value.trim();
       const laengen = document.getElementById('artikellaengen').value.trim();
@@ -226,9 +227,12 @@ function openItemModal(item = {}) {
   }).then(result => {
     if (result.isConfirmed && result.value) {
       saveItemWithData(result.value, item.id || generateUniqueId());
+    } else if (result.isDenied && item.id) {
+      deleteItem(item.id);
     }
   });
 }
+
 
 
 function generateUniqueId() {
@@ -297,5 +301,31 @@ function loadItems() {
     el.innerHTML = `<span class="item-label">${item.artikelname}</span>`;
     el.onclick = () => openItemModal(item);
     container.appendChild(el);
+  });
+}
+
+function deleteItem(id) {
+  Swal.fire({
+    title: 'Artikel löschen?',
+    text: 'Dieser Vorgang kann nicht rückgängig gemacht werden.',
+    icon: 'warning',
+    showCancelButton: true,
+    confirmButtonText: 'Ja, löschen',
+    cancelButtonText: 'Abbrechen'
+  }).then(result => {
+    if (result.isConfirmed) {
+      const items = JSON.parse(localStorage.getItem('artikelItems')) || [];
+      const updatedItems = items.filter(item => item.id !== id);
+      localStorage.setItem('artikelItems', JSON.stringify(updatedItems));
+      loadItems();
+
+      Swal.fire({
+        icon: 'success',
+        title: 'Gelöscht!',
+        text: 'Der Artikel wurde erfolgreich entfernt.',
+        timer: 1500,
+        showConfirmButton: false
+      });
+    }
   });
 }

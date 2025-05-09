@@ -39,9 +39,8 @@ function calculateAll() {
 
   document.getElementById('configurationBase').innerText = configurationBase;
   document.getElementById('recommendedModules').innerText = `${selectedModules}`;
-  document.getElementById('systemsOverview').innerText = `
-    ${systems.length} Systeme: ${systems.map((m, i) => `System ${i + 1}: ${m} Module`).join(', ')}
-  `;
+  const systemLines = systems.map((m, i) => `🟧 System ${i + 1}: ${m} Module`).join('\n');
+  document.getElementById('systemsOverview').innerText = systemLines;
   document.getElementById('containerReturn').innerText = `${containerReturn}`;
   document.getElementById('rowReturn').innerText = `${rowReturn}`;
 }

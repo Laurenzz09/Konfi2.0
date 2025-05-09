@@ -6,6 +6,7 @@
   <title>Modul Berechner</title>
   <link rel="stylesheet" href="styles.css" />
   <link rel="stylesheet" href="stylesKonfi.css">
+  <link rel="stylesheet" href="stylesModule.css">
 </head>
 <body>
 
@@ -55,6 +56,41 @@
         </select>
         <button id="clearStorageButton" onclick="confirmClear()"></button>
       </div>
+
+
+<div class="modul-rechner">
+        <h1>Modul Rechner</h1>
+  <p>Basierend auf den konfigurierten Artikeln berechnet dieses Tool die optimale Ausstattung.</p>
+
+  <div class="result-grid">
+    <div>
+      <h3>Berechnungsgrundlage</h3>
+      <p id="configurationBase">-</p>
+    </div>
+    <div>
+      <h3>Empfohlene Module</h3>
+      <p id="recommendedModules">-</p>
+    </div>
+    <div>
+      <h3>Systeme</h3>
+      <p id="systemsOverview">-</p>
+    </div>
+    <div>
+      <h3>Container Rückgabe</h3>
+      <p id="containerReturn">-</p>
+    </div>
+    <div>
+      <h3>Anreiher Rückgabe</h3>
+      <p id="rowReturn">-</p>
+    </div>
+  </div>
+</div>
+
+
+  <button class="modul-button" onclick="calculateAll()">Jetzt berechnen</button>
+
+
+  <script src="modulrechner.js"></script>
 
  
   <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>

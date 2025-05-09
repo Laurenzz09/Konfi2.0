@@ -1,0 +1,136 @@
+  function calculateAll() {
+    const data = JSON.parse(localStorage.getItem('artikelItems')) || [];
+    if (data.length === 0) {
+        document.getElementById('configurationBase').innerText = 'Keine Daten verfügbar.';
+        document.getElementById('recommendedModules').innerText = 'Keine Daten verfügbar.';
+        document.getElementById('systemsOverview').innerText = 'Keine Systeme erforderlich.';
+        document.getElementById('containerReturn').innerText = '-';
+        document.getElementById('rowReturn').innerText = '-';
+        return;
+    }
+
+    // Konstanten
+    const TAUSCHQUOTE = 2; // Anzahl der Kleidungsstücke pro Mitarbeiter
+    const FÜLLMENGE_SCHRANK = 80; // Module füllen bis 80
+    const MODULE_CAPACITY = 8; // 8 Varianten pro Modul
+    const CONTAINER_CAPACITY = 250; // WR 1055 / 1270 Kapazität
+    const ROW_MULTIPLIER = 3; // Multiplikator für WR 600
+
+    // Berechnung der Gesamtzahl der Mitarbeiter und Varianten
+    const totalEmployees = data.reduce((sum, item) => sum + (parseInt(item.vollzeitMitarbeiter) || 0), 0);
+    const totalVariants = data.reduce((sum, item) => sum + ((parseInt(item.artikellaengen) || 0) * (parseInt(item.artikelgroessen) || 0)), 0);
+
+    // Berechnung der Module
+    const modulesByTauschmenge = Math.ceil((totalEmployees * TAUSCHQUOTE * 0.5) / FÜLLMENGE_SCHRANK);
+    const modulesByVariants = Math.ceil(totalVariants / MODULE_CAPACITY);
+
+    // Entscheidung: Varianten oder Tauschmenge?
+    let configurationBase;
+    let selectedModules;
+    if (modulesByVariants > modulesByTauschmenge) {
+        configurationBase = 'Varianten';
+        selectedModules = modulesByVariants;
+    } else {
+        configurationBase = 'Tauschmenge';
+        selectedModules = modulesByTauschmenge;
+    }
+
+    // Aufteilung der Module auf Systeme
+    const systems = calculateSystemsBalanced(selectedModules);
+
+    // Berechnung der Rückgabeeinheiten
+    const totalTauschmenge = totalEmployees * TAUSCHQUOTE;
+    const containerReturn = Math.ceil(totalTauschmenge / CONTAINER_CAPACITY / 5); // Container Rückgabe (WR 1055 / 1270)
+    const rowReturn = containerReturn * ROW_MULTIPLIER; // Anreiher Rückgabe (WR 600)
+
+    // Ergebnisse anzeigen
+    document.getElementById('configurationBase').innerText = configurationBase;
+    document.getElementById('recommendedModules').innerText = `${selectedModules}`;
+    document.getElementById('systemsOverview').innerText = `
+        ${systems.length} Systeme: ${systems.map((m, i) => `System ${i + 1}: ${m} Module`).join(', ')}
+    `;
+    document.getElementById('containerReturn').innerText = `${containerReturn}`;
+    document.getElementById('rowReturn').innerText = `${rowReturn}`;
+}
+
+
+// Gleichmäßige Aufteilung der Module auf Systeme
+function calculateSystemsBalanced(modules) {
+    const MAX_MODULES_PER_SYSTEM = 12; // Maximal 12 Module pro System
+    const systems = [];
+
+    if (modules <= MAX_MODULES_PER_SYSTEM) {
+        // Wenn die Module in ein System passen
+        systems.push(modules);
+    } else {
+        // Gleichmäßige Aufteilung auf zwei Systeme
+        const halfModules = Math.floor(modules / 2);
+        systems.push(halfModules);
+
+        // Restliche Module
+        const remainingModules = modules - halfModules;
+        systems.push(remainingModules);
+    }
+
+    return systems;
+}
+
+
+// Gleichmäßige Aufteilung der Module auf Systeme
+function calculateSystemsBalanced(modules) {
+    const MAX_MODULES_PER_SYSTEM = 12; // Maximal 12 Module pro System
+    const systems = [];
+
+    if (modules <= MAX_MODULES_PER_SYSTEM) {
+        // Wenn die Module in ein System passen
+        systems.push(modules);
+    } else {
+        // Gleichmäßige Aufteilung auf zwei Systeme
+        const halfModules = Math.floor(modules / 2);
+        systems.push(halfModules);
+
+        // Restliche Module
+        const remainingModules = modules - halfModules;
+        systems.push(remainingModules);
+    }
+
+    return systems;
+}
+
+
+
+
+ function calculateSystemsBalanced(modules) {
+     const MAX_MODULES_PER_SYSTEM = 12; // Maximal 12 Module pro System
+     const systems = [];
+
+     if (modules <= MAX_MODULES_PER_SYSTEM) {
+         // Wenn die Module in ein System passen
+         systems.push(modules);
+     } else {
+         // Gleichmäßige Aufteilung auf zwei Systeme
+         const halfModules = Math.floor(modules / 2);
+         systems.push(halfModules);
+
+         // Restliche Module
+         const remainingModules = modules - halfModules;
+         systems.push(remainingModules);
+     }
+
+     return systems;
+ }
+
+
+ document.addEventListener('DOMContentLoaded', () => {
+     const currentPage = window.location.pathname.split('/').pop();
+     const navigationRadios = document.querySelectorAll('.radio-input input[name="navigation-radio"]');
+     navigationRadios.forEach(radio => {
+       if (radio.value === currentPage) {
+         radio.checked = true;
+       }
+     });
+   });
+
+   function navigateTo(page) {
+     window.location.href = page;
+   }

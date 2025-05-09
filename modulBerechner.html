@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Modul Berechner</title>
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="stylesKonfi.css">
+  <link rel="stylesheet" href="stylesModule.css">
+</head>
+<body>
+
+
+  <div class="hintergrund"></div>
+
+  <header>
+    <!-- From Uiverse.io by Admin12121 -->
+    <div class="menu">
+      <a href="index.html" class="link">
+        <span class="link-icon">
+          <ion-icon name="home-outline"></ion-icon>
+        </span>
+        <span class="link-title">Startseite</span>
+      </a>
+      <a href="konfigurator.html" class="link">
+        <span class="link-icon">
+          <ion-icon name="construct-outline"></ion-icon>
+        </span>
+        <span class="link-title">Konfigurator</span>
+      </a>
+      <a href="modulBerechner.html" class="link active">
+        <span class="link-icon">
+            <ion-icon name="calculator-outline"></ion-icon>
+        </span>
+        <span class="link-title">Modulrechner</span>
+      </a>
+      <a href="tabelle.html" class="link">
+        <span class="link-icon">
+            <ion-icon name="document-text-outline"></ion-icon>
+        </span>
+        <span class="link-title">Tabelle</span>
+      </a>
+      <a href="settings.html" class="link">
+        <span class="link-icon">
+            <ion-icon name="settings-outline"></ion-icon>
+        </span>
+        <span class="link-title">Einstellungen</span>
+      </a>
+    </div>
+
+
+    <div class="top-bar">
+        <select id="language-select" onchange="changeLanguage()">
+          <option value="de" data-image="de.png">Deutsch</option>
+          <option value="en" data-image="en.png">English</option>
+        </select>
+        <button id="clearStorageButton" onclick="confirmClear()"></button>
+      </div>
+
+
+<div class="modul-rechner">
+        <h1>Modul Rechner</h1>
+  <p>Basierend auf den konfigurierten Artikeln berechnet dieses Tool die optimale Ausstattung.</p>
+
+  <div class="result-grid">
+    <div>
+      <h3>Berechnungsgrundlage</h3>
+      <p id="configurationBase">-</p>
+    </div>
+    <div>
+      <h3>Empfohlene Module</h3>
+      <p id="recommendedModules">-</p>
+    </div>
+    <div>
+      <h3>Systeme</h3>
+      <p id="systemsOverview">-</p>
+    </div>
+    <div>
+      <h3>Container Rückgabe</h3>
+      <p id="containerReturn">-</p>
+    </div>
+    <div>
+      <h3>Anreiher Rückgabe</h3>
+      <p id="rowReturn">-</p>
+    </div>
+  </div>
+</div>
+
+
+  <script src="modulrechner.js"></script>
+
+ 
+  <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+  <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <script src="script.js"></script>
+
+</body>
+</html>
